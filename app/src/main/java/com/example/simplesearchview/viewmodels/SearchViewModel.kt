@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.simplesearchview.Lfs
 import com.example.simplesearchview.repository.SearchRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class SearchViewModel(val searchRepository: SearchRepository) : ViewModel() {
@@ -19,8 +20,9 @@ class SearchViewModel(val searchRepository: SearchRepository) : ViewModel() {
     fun getSearchResults(searchStr: String) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
+            val asyncJob = async { searchRepository.getSearchItems(searchStr) }
+            asyncJob.await()
             isLoading.postValue(false)
-            searchRepository.getSearchItems(searchStr)
         }
     }
 }
