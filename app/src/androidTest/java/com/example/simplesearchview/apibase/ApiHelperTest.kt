@@ -5,13 +5,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.junit.Before
 import org.junit.Test
 
 class ApiHelperTest : TestCase(){
 
+    private lateinit var apiService: ApiService
+
+    @Before
+    fun setup(){
+        apiService = ApiHelper.getInstance().create(ApiService::class.java)
+    }
+
     @Test
     fun testApi(){
-        val apiService = ApiHelper.getInstance().create(ApiService::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
             val response =
