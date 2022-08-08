@@ -13,7 +13,10 @@ import kotlinx.coroutines.launch
 class SearchViewModel(val searchRepository: SearchRepository) : ViewModel() {
 
     val resultList: LiveData<List<Lfs>>
-    get() = searchRepository.searchResults
+        get() = searchRepository.searchResults
+
+    val errorLoading: LiveData<Boolean>
+        get() = searchRepository.errorLoading
 
     var isLoading = MutableLiveData<Boolean>()
 

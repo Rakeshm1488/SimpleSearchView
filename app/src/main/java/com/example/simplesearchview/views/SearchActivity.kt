@@ -2,8 +2,8 @@ package com.example.simplesearchview.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +39,8 @@ class SearchActivity : AppCompatActivity() {
     private fun getResult(sStr: String) {
         if(CheckNetwork.isNetworkAvailable(this) && sStr.length >= 3) {
             searchViewModel.getSearchResults(sStr)
+        } else {
+            searchAdapter?.setSearchResult(listOf())
         }
     }
 
@@ -60,6 +62,12 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel.isLoading.observe(this, {
             it?.let {
                 searchBinding.searchProgressBar.visibility = if(it) View.VISIBLE else View.GONE
+            }
+        })
+
+        searchViewModel.errorLoading.observe(this, {
+            if(it){
+                Toast.makeText(this@SearchActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         })
     }
