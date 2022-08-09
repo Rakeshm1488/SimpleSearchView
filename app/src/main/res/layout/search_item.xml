@@ -4,19 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="lfsItem"
+            type="com.example.simplesearchview.Lfs" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:elevation="4dp"
-        app:cardCornerRadius="4dp"
+        android:layout_margin="@dimen/m_4"
+        android:elevation="@dimen/m_4"
+        app:cardCornerRadius="@dimen/m_4"
         tools:context=".views.SearchActivity">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@{lfsItem.lf}"/>
 
     </androidx.cardview.widget.CardView>
 </layout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SimpleSearchView</string>
+    <string name="enter_searchtext">Enter SearchText</string>
+    <string name="no_data_found">No Data Found</string>
 </resources>

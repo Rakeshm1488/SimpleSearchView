@@ -20,7 +20,7 @@ class SearchAdapter : RecyclerView.Adapter<MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.binding.name.text = searchList[position].lf
+        holder.binding.lfsItem = searchList[position]
     }
 
     override fun getItemCount(): Int {

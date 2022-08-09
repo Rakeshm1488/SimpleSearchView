@@ -1,31 +1,47 @@
 package com.example.simplesearchview.viewmodels
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.simplesearchview.Lfs
+import com.example.simplesearchview.apibase.ApiHelper
+import com.example.simplesearchview.apibase.ApiService
 import com.example.simplesearchview.repository.SearchRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class SearchViewModel(val searchRepository: SearchRepository) : ViewModel() {
+class SearchViewModel() : ViewModel() {
 
-    val resultList: LiveData<List<Lfs>>
-        get() = searchRepository.searchResults
+    private var apiService: ApiService
+    private var searchRepository: SearchRepository
 
-    val errorLoading: LiveData<Boolean>
-        get() = searchRepository.errorLoading
+    init {
+        apiService = ApiHelper.getInstance().create(ApiService::class.java)
+        searchRepository = SearchRepository(apiService)
+    }
 
-    var isLoading = MutableLiveData<Boolean>()
+    val resultList: MutableLiveData<List<Lfs>>
+        get() = searchRepository.searchResults as MutableLiveData<List<Lfs>>
+
+    val errorMsg: MutableLiveData<String>
+        get() = searchRepository.showErrorMsg as MutableLiveData<String>
+
+    val errorMsgVisibility: MutableLiveData<Int>
+        get() = searchRepository.errorMsgVisibility as MutableLiveData<Int>
+
+    val isLoading: LiveData<Int>
+        get() = searchRepository.isDataLoading
 
     fun getSearchResults(searchStr: String) {
-        isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            val asyncJob = async { searchRepository.getSearchItems(searchStr) }
-            asyncJob.await()
-            isLoading.postValue(false)
+        if(searchStr.length >= 3) {
+            viewModelScope.launch(Dispatchers.IO) {
+                searchRepository.getSearchItems(searchStr)
+            }
+        } else {
+            errorMsgVisibility.postValue(View.VISIBLE)
+            errorMsg.postValue("Please enter atleast 3 characters")
+            resultList.postValue(listOf())
         }
     }
 }
