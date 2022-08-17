@@ -12,6 +12,10 @@ import com.example.simplesearchview.databinding.ActivitySearchBinding
 import com.example.simplesearchview.utils.CheckNetwork
 import com.example.simplesearchview.viewmodels.SearchViewModel
 
+/*
+* Simple search implementation
+* Activity to read Search string and show Search Results
+* */
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var searchViewModel: SearchViewModel

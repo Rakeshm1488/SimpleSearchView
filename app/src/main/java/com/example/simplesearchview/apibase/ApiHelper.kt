@@ -5,6 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/* ApiHelper provides the instance of Retrofit to invoke API calls */
 object ApiHelper {
     private const val baseURL = "http://www.nactem.ac.uk/software/acromine/"
 

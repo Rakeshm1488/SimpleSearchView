@@ -4,14 +4,15 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.simplesearchview.Lfs
-import com.example.simplesearchview.SearchResponse
+import com.example.simplesearchview.model.Lfs
+import com.example.simplesearchview.model.SearchResponse
 import com.example.simplesearchview.apibase.ApiService
 import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/* Repository class Implemented to do data related calls */
 class SearchRepository(private val apiService: ApiService) {
 
     private val searchLiveData = MutableLiveData<List<Lfs>>()
@@ -31,6 +32,7 @@ class SearchRepository(private val apiService: ApiService) {
     val isDataLoading: LiveData<Int>
         get() = dataLoading
 
+    /* API call to fetch search results */
     suspend fun getSearchItems(searchString: String) {
         try {
             dataLoading.postValue(View.VISIBLE)

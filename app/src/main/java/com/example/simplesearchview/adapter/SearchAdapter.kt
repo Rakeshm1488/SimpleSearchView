@@ -3,9 +3,10 @@ package com.example.simplesearchview.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.simplesearchview.Lfs
+import com.example.simplesearchview.model.Lfs
 import com.example.simplesearchview.databinding.SearchItemBinding
 
+/* This is a adapter class for recycler view to show the results*/
 class SearchAdapter : RecyclerView.Adapter<MainViewHolder>() {
     private var searchList = listOf<Lfs>()
     fun setSearchResult(searchList: List<Lfs>) {

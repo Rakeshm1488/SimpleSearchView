@@ -11,9 +11,7 @@ import android.net.NetworkCapabilities
 
 import android.net.ConnectivityManager
 
-
-
-
+/* This class checks and return the network status*/
 class CheckNetwork {
 
     companion object {

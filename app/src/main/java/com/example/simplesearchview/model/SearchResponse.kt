@@ -1,4 +1,4 @@
-package com.example.simplesearchview
+package com.example.simplesearchview.model
 
 data class SearchResponse(
     val sf: String,
